@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">artesVivas</string>
+    <string name="title_activity_reference">ReferenceActivity</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="btn_login">Ingresar</string>
+    <string name="title_card_view_event">titulo</string>
+    <string name="place_card_event">lugar</string>
+    <string name="start_card_event">Inicio</string>
+    <string name="start">22/23/2018</string>
+    <string name="end_card_event">Fin</string>
+    <string name="end">22:30</string>
+    <string name="date_card_event">22/22/2018</string>
+    <string name="spinner_title">Buscar Por</string>
+    <string name="search_by">Buscar Por:</string>
+    <string name="search_by_name">Nombre</string>
+    <string name="search_by_date">Fecha</string>
+    <string name="age">Edad</string>
+</resources>

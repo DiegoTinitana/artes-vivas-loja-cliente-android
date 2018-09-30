@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.diegotinitana.artesvivas.R;
 import com.diegotinitana.artesvivas.data.Store;
 import com.diegotinitana.artesvivas.models.Test;
+import com.diegotinitana.artesvivas.models.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -48,6 +49,7 @@ public class TestActivity extends AppCompatActivity {
     private AlertDialog alertDialog;
     private TextView title;
     private String idEvent;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,7 @@ public class TestActivity extends AppCompatActivity {
         testEmail = findViewById(R.id.test_email);
         title = findViewById(R.id.title_test);
 
+        user = Store.user.get(0);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
@@ -85,20 +88,24 @@ public class TestActivity extends AppCompatActivity {
         client.put("name", testName.getText().toString());
         client.put("age", testAge.getText().toString());
         client.put("email", testEmail.getText().toString());
+        Map<String, Object> c = new HashMap<>();
+        c.put("client", client);
 
         db.collection("clients")
-                .add(client)
+                .add(c)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         quiz.put("client", documentReference.getId());
-                        quiz.put("createdAt", new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date()));
+                        quiz.put("createdAt", new SimpleDateFormat("yyyy-MM-dd HH.mm.ss").format(new Date()));
                         quiz.put("system","android");
                         quiz.put("eventId",idEvent);
-                        quiz.put("createdBy", "");
+                        quiz.put("createdBy", user.getId());
+                        Map<String, Object> q = new HashMap<>();
+                        q.put("quiz", quiz);
                         db.collection("quiz")
-                                .add(quiz)
+                                .add(q)
                                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                     @Override
                                     public void onSuccess(DocumentReference documentReference) {

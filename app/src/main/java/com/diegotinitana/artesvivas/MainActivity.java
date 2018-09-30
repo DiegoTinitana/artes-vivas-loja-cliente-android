@@ -19,6 +19,7 @@ import com.diegotinitana.artesvivas.data.Store;
 import com.diegotinitana.artesvivas.models.Event;
 import com.diegotinitana.artesvivas.models.Place;
 import com.diegotinitana.artesvivas.models.Test;
+import com.diegotinitana.artesvivas.models.User;
 import com.diegotinitana.artesvivas.view.EventsActivity;
 import com.diegotinitana.artesvivas.view.TestActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -95,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
                             getData();
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            final ArrayList<User> usr = new ArrayList<>();
+                            User u = new User(user.getDisplayName(), user.getUid());
+                            usr.add(u);
+                            Store.user = usr ;
                         } else {
                             progress.hide();
                             alertDialog = new AlertDialog.Builder(MainActivity.this).create();
